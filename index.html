@@ -697,6 +697,12 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
       <button class="btn btn-primary btn-full" id="notifBtn" onclick="requestNotifications()" style="margin-top:14px">Enable Notifications</button>
     </div>
 
+    <div class="card" id="installCard" style="display:none">
+      <div class="card-title"><span class="card-icon">&#128242;</span> Install App</div>
+      <p style="font-size:13px;color:var(--text);margin-bottom:12px;line-height:1.5">Install Ramadan Advantage on your home screen for quick access, offline use, and notifications.</p>
+      <button class="btn btn-gold btn-full" id="installCardBtn" onclick="triggerInstall()">Add to Home Screen</button>
+    </div>
+
     <div class="card">
       <div class="card-title"><span class="card-icon">&#128228;</span> Export & Share</div>
       <button class="btn btn-gold btn-full" onclick="exportProgress()" style="margin-bottom:10px">Export Progress Report</button>
@@ -1498,29 +1504,50 @@ function init() {
 
 // ===== INSTALL PROMPT =====
 let deferredPrompt = null;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+function showInstallCard() {
+  const card = document.getElementById('installCard');
+  if (!card || isStandalone) return;
+  const btn = document.getElementById('installCardBtn');
+  if (isIOS) {
+    btn.textContent = 'How to Install';
+    btn.onclick = () => {
+      document.getElementById('iosInstallHint').classList.add('show');
+    };
+  }
+  card.style.display = '';
+}
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
+  showInstallCard();
   // Show install banner if not previously dismissed
   if (!LS.get('install_dismissed')) {
     setTimeout(() => {
       document.getElementById('installBanner').classList.add('show');
-    }, 3000); // Show after 3 seconds
+    }, 3000);
   }
 });
 
-function installApp() {
+function triggerInstall() {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(choice => {
       if (choice.outcome === 'accepted') {
         showToast('App installed! Find it on your home screen');
+        document.getElementById('installCard').style.display = 'none';
       }
       deferredPrompt = null;
       document.getElementById('installBanner').classList.remove('show');
     });
   }
+}
+
+function installApp() {
+  triggerInstall();
 }
 
 function dismissInstall() {
@@ -1530,19 +1557,21 @@ function dismissInstall() {
 
 // iOS detection — show custom install hint
 function checkiOSInstall() {
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  const isStandalone = window.navigator.standalone === true;
-  if (isIOS && !isStandalone && !LS.get('ios_hint_dismissed')) {
-    setTimeout(() => {
-      document.getElementById('iosInstallHint').classList.add('show');
-      LS.set('ios_hint_dismissed', true);
-    }, 5000);
+  if (isIOS && !isStandalone) {
+    showInstallCard();
+    if (!LS.get('ios_hint_dismissed')) {
+      setTimeout(() => {
+        document.getElementById('iosInstallHint').classList.add('show');
+        LS.set('ios_hint_dismissed', true);
+      }, 5000);
+    }
   }
 }
 
 // Hide install banner if app is already installed
 window.addEventListener('appinstalled', () => {
   document.getElementById('installBanner').classList.remove('show');
+  document.getElementById('installCard').style.display = 'none';
   deferredPrompt = null;
   showToast('Welcome! App installed successfully');
 });
