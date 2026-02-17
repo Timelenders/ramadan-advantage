@@ -177,7 +177,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
 /* Collapsible sections */
 .collapse-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .collapse-header .card-title{margin-bottom:0}
-.collapse-arrow{color:var(--text-dim);font-size:18px;transition:transform .3s;font-weight:300}
+.collapse-arrow{color:var(--gold);font-size:13px;transition:transform .3s;width:32px;height:32px;border-radius:50%;background:rgba(212,168,67,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(212,168,67,0.2)}
 .collapse-header.open .collapse-arrow{transform:rotate(180deg)}
 .collapse-body{overflow:hidden;transition:max-height .35s ease;max-height:0}
 .collapse-body.open{max-height:1000px}
@@ -493,10 +493,10 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
     <div class="card">
       <div class="collapse-header" onclick="toggleCollapse(this)">
         <div class="card-title"><span class="card-icon">&#128213;</span> Quran</div>
-        <span class="collapse-arrow">&#9662;</span>
+        <span class="collapse-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
       </div>
       <div class="collapse-body open">
-        <div class="field" style="margin-top:10px"><label>Juzz Completed</label><input type="text" data-daily="quran_juzz" placeholder="e.g. 1"></div>
+        <div class="field" style="margin-top:10px"><label>Juzz Completed</label><select data-daily="quran_juzz"><option value="">Select...</option><option value="0.25">Quarter Juzz</option><option value="0.5">Half Juzz</option><option value="0.75">Three-Quarter Juzz</option><option value="1">1 Juzz</option><option value="1.5">1.5 Juzz</option><option value="2">2 Juzz</option><option value="3">3 Juzz</option><option value="4">4 Juzz</option><option value="5">5+ Juzz</option></select></div>
         <div class="field"><label>Surah(s)</label><input type="text" data-daily="quran_surah" placeholder="Which surah(s)?"></div>
         <div class="field"><label>Verses Memorized</label><input type="text" data-daily="quran_memorized" placeholder="New verses memorized"></div>
       </div>
@@ -510,7 +510,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
     <div class="card">
       <div class="collapse-header" onclick="toggleCollapse(this)">
         <div class="card-title"><span class="card-icon">&#129309;</span> Contribution</div>
-        <span class="collapse-arrow">&#9662;</span>
+        <span class="collapse-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
       </div>
       <div class="collapse-body open">
         <div class="field" style="margin-top:10px"><label>How did you contribute today?</label><input type="text" data-daily="contribution_how" placeholder="Charity, help, da'wah..."></div>
@@ -521,7 +521,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
     <div class="card">
       <div class="collapse-header" onclick="toggleCollapse(this)">
         <div class="card-title"><span class="card-icon">&#128188;</span> Work Goals</div>
-        <span class="collapse-arrow">&#9662;</span>
+        <span class="collapse-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
       </div>
       <div class="collapse-body open">
         <div class="field" style="margin-top:10px"><label>Top 3 MITs (Most Important To-dos)</label>
@@ -535,7 +535,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
     <div class="card">
       <div class="collapse-header" onclick="toggleCollapse(this)">
         <div class="card-title"><span class="card-icon">&#128106;</span> Family Goals Today</div>
-        <span class="collapse-arrow">&#9662;</span>
+        <span class="collapse-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
       </div>
       <div class="collapse-body open">
         <div class="field" style="margin-top:10px"><textarea data-daily="family_today" placeholder="What did you do for your family today?" rows="3"></textarea></div>
@@ -654,6 +654,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
 
     <div class="card">
       <div class="card-title"><span class="card-icon">&#128276;</span> Notifications</div>
+      <div id="notifStatus" style="font-size:12px;line-height:1.6;margin-bottom:12px;padding:10px 14px;border-radius:var(--radius-xs);display:none"></div>
       <div class="check-row">
         <div class="check-box" id="notifSehri" onclick="toggleNotif('sehri')"></div>
         <span class="check-label">Sehri Reminder</span>
@@ -670,7 +671,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
         <div class="check-box" id="notifTahajjud" onclick="toggleNotif('tahajjud')"></div>
         <span class="check-label">Tahajjud Reminder</span>
       </div>
-      <button class="btn btn-primary btn-full" onclick="requestNotifications()" style="margin-top:14px">Enable Notifications</button>
+      <button class="btn btn-primary btn-full" id="notifBtn" onclick="requestNotifications()" style="margin-top:14px">Enable Notifications</button>
     </div>
 
     <div class="card">
@@ -1147,7 +1148,8 @@ function updateDashboard() {
   // Update highlights
   document.getElementById('hlSalah').textContent = todaySalah + '/' + SALAH_ITEMS.length;
   document.getElementById('hlWater').textContent = todayWaterCount + '/' + waterGoal;
-  document.getElementById('hlQuran').textContent = todayData.field_quran_juzz || '--';
+  const juzzVal = todayData.field_quran_juzz;
+  document.getElementById('hlQuran').textContent = juzzVal ? juzzVal + ' J' : '--';
 
   for (let d = 1; d <= 30; d++) {
     const dayData = LS.get('day_' + d, {});
@@ -1232,13 +1234,78 @@ function updateStreak() {
 }
 
 // ===== NOTIFICATIONS =====
+function getNotifEnv() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const hasNotifAPI = 'Notification' in window;
+  const isIOSChrome = isIOS && /CriOS/.test(navigator.userAgent);
+  const isIOSSafari = isIOS && /Safari/.test(navigator.userAgent) && !/CriOS|FxiOS|OPiOS/.test(navigator.userAgent);
+  return { isIOS, isStandalone, hasNotifAPI, isIOSChrome, isIOSSafari };
+}
+
+function updateNotifUI() {
+  const env = getNotifEnv();
+  const status = document.getElementById('notifStatus');
+  const btn = document.getElementById('notifBtn');
+  if (!status || !btn) return;
+
+  if (env.hasNotifAPI && Notification.permission === 'granted') {
+    status.style.display = 'block';
+    status.style.background = 'rgba(52,211,153,0.1)';
+    status.style.color = 'var(--success)';
+    status.innerHTML = 'Notifications are enabled. Your reminders are active.';
+    btn.textContent = 'Notifications Active';
+    btn.style.opacity = '0.6';
+    btn.disabled = true;
+  } else if (env.isIOS && !env.isStandalone) {
+    status.style.display = 'block';
+    status.style.background = 'rgba(251,191,36,0.1)';
+    status.style.color = 'var(--warning)';
+    if (env.isIOSChrome) {
+      status.innerHTML = '<strong>iOS Chrome cannot send notifications.</strong><br>To get reminders: open this app in <strong>Safari</strong>, tap the Share button, then <strong>"Add to Home Screen"</strong>. Once installed, notifications will work.';
+    } else {
+      status.innerHTML = '<strong>Almost there!</strong> To enable notifications on iPhone, first <strong>add this app to your Home Screen</strong> using the Share button below, then open it from there.';
+    }
+    btn.textContent = 'How to Install';
+    btn.onclick = () => {
+      if (env.isIOSChrome) {
+        showToast('Open this page in Safari first, then Add to Home Screen');
+      } else {
+        document.getElementById('iosInstallHint')?.classList.add('show');
+      }
+    };
+  } else if (!env.hasNotifAPI) {
+    status.style.display = 'block';
+    status.style.background = 'rgba(248,113,113,0.1)';
+    status.style.color = 'var(--danger)';
+    status.innerHTML = 'Your browser does not support notifications. Try opening this app in <strong>Chrome</strong> or <strong>Safari</strong>, or install it to your home screen.';
+    btn.style.display = 'none';
+  }
+}
+
 function requestNotifications() {
-  if (!('Notification' in window)) { showToast('Notifications not supported on this browser'); return; }
+  const env = getNotifEnv();
+
+  if (!env.hasNotifAPI) {
+    if (env.isIOS && !env.isStandalone) {
+      showToast('Install the app to your home screen first');
+      document.getElementById('iosInstallHint')?.classList.add('show');
+    } else {
+      showToast('Notifications are not supported in this browser');
+    }
+    return;
+  }
+
   Notification.requestPermission().then(perm => {
     if (perm === 'granted') {
       showToast('Notifications enabled!');
       scheduleNotifications();
-    } else showToast('Notification permission denied');
+      updateNotifUI();
+    } else if (perm === 'denied') {
+      showToast('Permission denied. Check your browser settings to allow notifications.');
+    } else {
+      showToast('Notification permission dismissed');
+    }
   });
 }
 
@@ -1251,14 +1318,14 @@ function toggleNotif(type) {
 }
 
 function scheduleNotifications() {
-  if (Notification.permission !== 'granted') return;
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
   const notifs = LS.get('notifs', {});
   const now = new Date();
   const hour = now.getHours();
-  if (notifs.sehri && hour === 4) new Notification('Ramadan Advantage', { body: 'Time for Sehri! Wake up and eat well', icon: '\u263E' });
-  if (notifs.iftar && hour === 17) new Notification('Ramadan Advantage', { body: 'Iftar is approaching! Prepare to break your fast', icon: '\u263E' });
-  if (notifs.reflection && hour === 22) new Notification('Ramadan Advantage', { body: "Don't forget today's reflection", icon: '\u263E' });
-  if (notifs.tahajjud && hour === 3) new Notification('Ramadan Advantage', { body: 'Rise for Tahajjud \u2014 the best time for dua', icon: '\u263E' });
+  if (notifs.sehri && hour === 4) new Notification('Ramadan Advantage', { body: 'Time for Sehri! Wake up and eat well', icon: './icons/icon-192x192.png' });
+  if (notifs.iftar && hour === 17) new Notification('Ramadan Advantage', { body: 'Iftar is approaching! Prepare to break your fast', icon: './icons/icon-192x192.png' });
+  if (notifs.reflection && hour === 22) new Notification('Ramadan Advantage', { body: "Don't forget today's reflection", icon: './icons/icon-192x192.png' });
+  if (notifs.tahajjud && hour === 3) new Notification('Ramadan Advantage', { body: 'Rise for Tahajjud \u2014 the best time for dua', icon: './icons/icon-192x192.png' });
 }
 
 setInterval(scheduleNotifications, 30 * 60 * 1000);
@@ -1366,6 +1433,7 @@ function init() {
   updateDashboard();
   updateStreak();
   updateGreeting();
+  updateNotifUI();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').then(() => console.log('SW registered'));
