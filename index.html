@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0a1628">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -28,16 +28,17 @@
   --shadow:0 2px 20px rgba(0,0,0,0.3);--shadow-lg:0 8px 40px rgba(0,0,0,0.4);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;padding-bottom:88px;-webkit-font-smoothing:antialiased}
+html{overscroll-behavior:none}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;overflow-x:hidden;overscroll-behavior:none;padding-bottom:88px;-webkit-font-smoothing:antialiased}
 
 /* Subtle pattern overlay */
 body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.025;pointer-events:none;z-index:0;
   background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23d4a843' stroke-width='0.4'/%3E%3Ccircle cx='30' cy='30' r='12' fill='none' stroke='%23d4a843' stroke-width='0.2'/%3E%3C/svg%3E");
 }
-.container{max-width:480px;margin:0 auto;padding:0 16px;position:relative;z-index:1}
+.container{max-width:480px;margin:0 auto;padding:0 calc(16px + env(safe-area-inset-right,0px)) 0 calc(16px + env(safe-area-inset-left,0px));position:relative;z-index:1}
 
 /* ===== HEADER ===== */
-.header{text-align:center;padding:20px 0 16px}
+.header{text-align:center;padding:calc(20px + env(safe-area-inset-top,0px)) 0 16px}
 .logo-wrap{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:6px}
 .logo-wrap svg{width:160px;height:auto}
 .app-title{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
@@ -140,7 +141,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
 .water-drop.filled{background:rgba(43,110,138,0.3);border-color:var(--teal);box-shadow:0 0 12px rgba(43,110,138,0.2)}
 
 /* ===== TOAST ===== */
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--bg-card);border:1px solid var(--teal);border-radius:var(--radius-sm);padding:12px 24px;color:var(--text);font-size:13px;z-index:200;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:var(--shadow-lg);font-weight:500;backdrop-filter:blur(10px)}
+.toast{position:fixed;top:calc(20px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%) translateY(-100px);background:var(--bg-card);border:1px solid var(--teal);border-radius:var(--radius-sm);padding:12px 24px;color:var(--text);font-size:13px;z-index:200;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:var(--shadow-lg);font-weight:500;backdrop-filter:blur(10px)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
 /* ===== MODAL ===== */
@@ -183,7 +184,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
 .collapse-body.open{max-height:1000px}
 
 /* ===== INSTALL PROMPT ===== */
-.install-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:14px 16px;display:none;align-items:center;gap:12px;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:slideDown .4s cubic-bezier(0.34,1.56,0.64,1)}
+.install-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:calc(14px + env(safe-area-inset-top,0px)) 16px 14px;display:none;align-items:center;gap:12px;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:slideDown .4s cubic-bezier(0.34,1.56,0.64,1)}
 .install-banner.show{display:flex}
 @keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
 .install-banner-icon{width:44px;height:44px;border-radius:12px;overflow:hidden;flex-shrink:0;background:var(--bg);display:flex;align-items:center;justify-content:center}
@@ -200,6 +201,15 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
 .ios-install-hint p{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px}
 .ios-install-hint .share-icon{display:inline-block;width:20px;height:20px;background:var(--teal);border-radius:4px;color:white;font-size:14px;line-height:20px;text-align:center;vertical-align:middle}
 .ios-install-hint button{background:var(--teal);color:white;border:none;padding:6px 16px;border-radius:16px;font-size:12px;cursor:pointer;font-family:inherit}
+
+/* ===== UPDATE & OFFLINE BANNERS ===== */
+.update-banner{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,8px));left:50%;transform:translateX(-50%);z-index:200;background:linear-gradient(135deg,var(--teal-dark),var(--teal));border-radius:var(--radius-sm);padding:10px 16px;display:none;align-items:center;gap:10px;box-shadow:var(--shadow-lg);font-size:13px;color:white;max-width:340px;width:calc(100% - 32px)}
+.update-banner.show{display:flex}
+.update-banner span{flex:1;font-weight:500}
+.update-banner button{background:var(--gold);color:var(--bg);border:none;padding:6px 14px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.update-banner .btn-dismiss{background:none;color:rgba(255,255,255,0.6);font-size:18px;padding:2px 6px}
+.offline-banner{position:fixed;top:0;left:0;right:0;z-index:190;background:rgba(248,113,113,0.95);color:white;padding:calc(6px + env(safe-area-inset-top,0px)) 16px 6px;display:none;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:500;backdrop-filter:blur(10px)}
+.offline-banner.show{display:flex}
 
 /* ===== SHARE INVITE ===== */
 .invite-card{background:linear-gradient(135deg,rgba(212,168,67,0.12),rgba(43,110,138,0.12));border:1px dashed rgba(212,168,67,0.3);border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:14px}
@@ -237,6 +247,19 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.0
 <div class="ios-install-hint" id="iosInstallHint">
   <p>To install this app, tap <span class="share-icon">&#8593;</span> Share, then<br><strong>"Add to Home Screen"</strong></p>
   <button onclick="document.getElementById('iosInstallHint').classList.remove('show')">Got it</button>
+</div>
+
+<!-- Update Banner -->
+<div class="update-banner" id="updateBanner">
+  <span>New version available</span>
+  <button onclick="applyUpdate()">Refresh</button>
+  <button class="btn-dismiss" onclick="dismissUpdate()">&times;</button>
+</div>
+
+<!-- Offline Banner -->
+<div class="offline-banner" id="offlineBanner">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0119 12.55"/><path d="M5 12.55a10.94 10.94 0 015.17-2.39"/><path d="M10.71 5.05A16 16 0 0122.56 9"/><path d="M1.42 9a15.91 15.91 0 014.7-2.88"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+  <span>You are offline. Data is saved locally.</span>
 </div>
 
 <div class="container">
@@ -961,9 +984,17 @@ function markDayComplete() {
   const d = LS.get('day_' + currentDay, {});
   d._complete = true;
   LS.set('day_' + currentDay, d);
-  buildDaySelector();
   updateStreak();
-  showToast('Day ' + currentDay + ' marked complete! \u2713');
+  if (currentDay < 30) {
+    const completed = currentDay;
+    currentDay++;
+    loadDailyData();
+    buildDaySelector();
+    showToast('Day ' + completed + ' complete! Moving to Day ' + currentDay);
+  } else {
+    buildDaySelector();
+    showToast('Day 30 marked complete! Ramadan Mubarak! \u2713');
+  }
 }
 
 // ===== COLLAPSE TOGGLE =====
@@ -1436,7 +1467,32 @@ function init() {
   updateNotifUI();
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').then(() => console.log('SW registered'));
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
+
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      console.log('SW registered');
+      setInterval(() => reg.update(), 30 * 60 * 1000);
+
+      const showUpdateBanner = () => {
+        document.getElementById('updateBanner')?.classList.add('show');
+      };
+
+      if (reg.waiting) showUpdateBanner();
+
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            showUpdateBanner();
+          }
+        });
+      });
+    });
   }
 }
 
@@ -1491,6 +1547,30 @@ window.addEventListener('appinstalled', () => {
   showToast('Welcome! App installed successfully');
 });
 
+// ===== UPDATE & OFFLINE =====
+function applyUpdate() {
+  navigator.serviceWorker.getRegistration().then(reg => {
+    if (reg?.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+  });
+  document.getElementById('updateBanner')?.classList.remove('show');
+}
+
+function dismissUpdate() {
+  document.getElementById('updateBanner')?.classList.remove('show');
+}
+
+function updateOnlineStatus() {
+  const banner = document.getElementById('offlineBanner');
+  if (!banner) return;
+  if (navigator.onLine) {
+    banner.classList.remove('show');
+  } else {
+    banner.classList.add('show');
+  }
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+
 // ===== SHARE / INVITE =====
 function inviteFriend() {
   const appUrl = window.location.href.split('?')[0];
@@ -1507,7 +1587,17 @@ function copyAppLink() {
   navigator.clipboard.writeText(appUrl).then(() => showToast('App link copied to clipboard!'));
 }
 
-document.addEventListener('DOMContentLoaded', () => { init(); checkiOSInstall(); });
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+  checkiOSInstall();
+  updateOnlineStatus();
+  // Handle shortcut deep links
+  const params = new URLSearchParams(window.location.search);
+  const section = params.get('section');
+  if (section && ['home','goals','daily','health','settings'].includes(section)) {
+    switchSection(section);
+  }
+});
 </script>
 </body>
 </html>
