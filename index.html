@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0a1628">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="A structured 30-day Ramadan program to maximize worship, health, and personal growth">
+<title>Ramadan Advantage</title>
+<link rel="manifest" href="./manifest.json">
+<!-- PWA Icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+<!-- iOS Splash Screens -->
+<meta name="apple-mobile-web-app-title" content="Ramadan+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1a7a6d;--primary-light:#22a18e;--primary-glow:rgba(26,122,109,0.15);
+  --teal:#2b6e8a;--teal-light:#3a8fb0;--teal-dark:#1e5068;--teal-glow:rgba(43,110,138,0.15);
+  --gold:#d4a843;--gold-light:#e8c76a;--gold-dark:#b8922e;--gold-glow:rgba(212,168,67,0.12);
+  --bg:#0a1628;--bg-card:#0f1d35;--bg-card2:#14233f;--bg-card-hover:#182a4a;--bg-input:#1a2a4a;
+  --text:#d8dce6;--text-dim:#6b7f99;--text-bright:#f0f2f5;
+  --success:#34d399;--warning:#fbbf24;--danger:#f87171;
+  --radius:16px;--radius-sm:10px;--radius-xs:6px;
+  --shadow:0 2px 20px rgba(0,0,0,0.3);--shadow-lg:0 8px 40px rgba(0,0,0,0.4);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;padding-bottom:88px;-webkit-font-smoothing:antialiased}
+
+/* Subtle pattern overlay */
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:0.025;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23d4a843' stroke-width='0.4'/%3E%3Ccircle cx='30' cy='30' r='12' fill='none' stroke='%23d4a843' stroke-width='0.2'/%3E%3C/svg%3E");
+}
+.container{max-width:480px;margin:0 auto;padding:0 16px;position:relative;z-index:1}
+
+/* ===== HEADER ===== */
+.header{text-align:center;padding:20px 0 16px}
+.logo-wrap{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:6px}
+.logo-wrap svg{width:160px;height:auto}
+.app-title{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.app-subtitle{font-size:10px;letter-spacing:3px;color:var(--teal-light);text-transform:uppercase;margin-top:2px;font-weight:500}
+.header-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.2),transparent);margin-top:14px}
+
+/* ===== COUNTER BAR ===== */
+.counter-bar{display:flex;align-items:center;justify-content:center;gap:0;padding:16px 20px;margin:14px 0;background:linear-gradient(135deg,var(--teal-dark),var(--bg-card2));border-radius:var(--radius);border:1px solid rgba(43,110,138,0.25);position:relative;overflow:hidden}
+.counter-bar::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.3),transparent)}
+.counter-item{text-align:center;flex:1}
+.counter-item .num{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:800;color:var(--gold);line-height:1}
+.counter-item .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-top:4px;font-weight:500}
+.counter-divider{width:1px;height:40px;background:linear-gradient(180deg,transparent,rgba(212,168,67,0.25),transparent);margin:0 4px}
+
+/* ===== BOTTOM NAV ===== */
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(15,29,53,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(43,110,138,0.12);display:flex;justify-content:space-around;z-index:100;padding:8px 0 env(safe-area-inset-bottom,8px)}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--text-dim);font-size:10px;padding:6px 14px;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;font-weight:500;letter-spacing:0.3px;position:relative}
+.nav-btn.active{color:var(--gold)}
+.nav-btn.active::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--gold);border-radius:2px}
+.nav-btn svg{width:22px;height:22px;transition:transform .2s}
+.nav-btn:active svg{transform:scale(0.9)}
+
+/* ===== SECTIONS ===== (transitions defined at bottom) */
+
+/* ===== CARDS ===== */
+.card{background:var(--bg-card);border-radius:var(--radius);padding:18px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.04);transition:border-color .2s;position:relative;overflow:hidden}
+.card:active{border-color:rgba(212,168,67,0.15)}
+.card-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;letter-spacing:0.2px}
+.card-title svg{width:18px;height:18px;flex-shrink:0;opacity:0.9}
+.card-title .card-icon{font-size:16px;line-height:1}
+
+/* Highlight card */
+.highlight-card{background:linear-gradient(135deg,rgba(43,110,138,0.18),rgba(212,168,67,0.08));border:1px solid rgba(43,110,138,0.2);position:relative;overflow:hidden}
+.highlight-card::after{content:'';position:absolute;top:-50%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(212,168,67,0.06),transparent 70%);pointer-events:none}
+
+/* ===== FORM ELEMENTS ===== */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--text-dim);margin-bottom:5px;font-weight:500;letter-spacing:0.2px}
+.field input,.field textarea,.field select{width:100%;padding:11px 14px;background:var(--bg-input);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-sm);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:all .2s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-glow)}
+.field textarea{resize:vertical;min-height:60px}
+
+/* ===== CHECKBOXES ===== */
+.check-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.check-row:last-child{border:none}
+.check-box{width:24px;height:24px;border-radius:8px;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.check-box:active{transform:scale(0.92)}
+.check-box.checked{background:var(--primary);border-color:var(--primary);box-shadow:0 2px 8px rgba(26,122,109,0.3)}
+.check-box.checked::after{content:'✓';color:white;font-size:14px;font-weight:700}
+.check-label{font-size:13px;flex:1;font-weight:450}
+
+/* ===== PROGRESS RING ===== */
+.progress-ring-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.progress-ring{position:relative;width:72px;height:72px}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring circle{fill:none;stroke-width:5}
+.progress-ring .ring-bg{stroke:rgba(255,255,255,0.06)}
+.progress-ring .ring-fill{stroke-linecap:round;transition:stroke-dashoffset .8s ease}
+.progress-ring .ring-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text-bright)}
+.progress-ring-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);font-weight:500}
+
+/* Stats grid with rings */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.stat-card{background:var(--bg-card);border-radius:var(--radius);padding:14px 8px;text-align:center;border:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;align-items:center;gap:6px}
+.stat-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);line-height:1}
+.stat-label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);font-weight:500}
+
+/* Overall progress bar */
+.progress-bar{height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .6s ease;background:linear-gradient(90deg,var(--teal),var(--gold))}
+
+/* ===== DAY SELECTOR ===== */
+.day-selector{display:flex;gap:6px;overflow-x:auto;padding:10px 0;scrollbar-width:none;-ms-overflow-style:none}
+.day-selector::-webkit-scrollbar{display:none}
+.day-btn{min-width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,255,255,0.06);background:var(--bg-card2);color:var(--text-dim);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.day-btn:active{transform:scale(0.92)}
+.day-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
+.day-btn.completed{border-color:var(--success);color:var(--success);background:rgba(52,211,153,0.08)}
+.day-btn.today{box-shadow:0 0 0 2px var(--gold)}
+
+/* ===== SUB TABS ===== */
+.sub-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0;scrollbar-width:none}
+.sub-tabs::-webkit-scrollbar{display:none}
+.sub-tab{padding:8px 16px;border-radius:24px;background:var(--bg-card2);border:1px solid rgba(255,255,255,0.05);color:var(--text-dim);font-size:12px;white-space:nowrap;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;font-weight:500}
+.sub-tab:active{transform:scale(0.96)}
+.sub-tab.active{background:linear-gradient(135deg,var(--teal-dark),var(--teal));border-color:var(--teal);color:white;box-shadow:0 2px 12px rgba(43,110,138,0.3)}
+
+/* ===== BUTTONS ===== */
+.btn{padding:12px 22px;border-radius:var(--radius-sm);border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;font-family:inherit;letter-spacing:0.3px}
+.btn:active{transform:scale(0.97)}
+.btn-primary{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:white;box-shadow:0 2px 12px rgba(43,110,138,0.25)}
+.btn-gold{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--bg);box-shadow:0 2px 12px rgba(212,168,67,0.25)}
+.btn-outline{background:transparent;border:1px solid rgba(212,168,67,0.4);color:var(--gold)}
+.btn-full{width:100%;display:block}
+
+/* ===== HYDRATION ===== */
+.hydration-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.water-drop{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all .25s;background:var(--bg-input)}
+.water-drop:active{transform:scale(0.9)}
+.water-drop.filled{background:rgba(43,110,138,0.3);border-color:var(--teal);box-shadow:0 0 12px rgba(43,110,138,0.2)}
+
+/* ===== TOAST ===== */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--bg-card);border:1px solid var(--teal);border-radius:var(--radius-sm);padding:12px 24px;color:var(--text);font-size:13px;z-index:200;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:var(--shadow-lg);font-weight:500;backdrop-filter:blur(10px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ===== MODAL ===== */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:150;align-items:flex-end;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg-card);border-radius:24px 24px 0 0;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;padding:28px 22px;animation:slideUp .35s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal h3{color:var(--gold);font-size:18px;margin-bottom:16px;font-family:'Playfair Display',serif}
+
+/* Goal & Health panels */
+.goal-panel{display:none}
+.goal-panel.active{display:block}
+.health-panel{display:none}
+.health-panel.active{display:block}
+
+/* Streak */
+.streak{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(251,191,36,0.12);border-radius:12px;font-size:13px;color:var(--warning)}
+
+/* Greeting section */
+.greeting{padding:2px 0 4px}
+.greeting-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text-bright);line-height:1.3}
+.greeting-sub{font-size:13px;color:var(--text-dim);margin-top:3px;font-weight:450}
+
+/* Highlights section */
+.highlights{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.highlight-mini{background:var(--bg-card);border-radius:var(--radius);padding:14px;border:1px solid rgba(255,255,255,0.04);text-align:center}
+.highlight-mini .hl-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;line-height:1}
+.highlight-mini .hl-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-top:4px;font-weight:500}
+.hl-salah{color:var(--teal-light)}
+.hl-water{color:#60a5fa}
+.hl-quran{color:var(--gold)}
+.hl-streak{color:var(--warning)}
+
+/* Collapsible sections */
+.collapse-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.collapse-header .card-title{margin-bottom:0}
+.collapse-arrow{color:var(--text-dim);font-size:18px;transition:transform .3s;font-weight:300}
+.collapse-header.open .collapse-arrow{transform:rotate(180deg)}
+.collapse-body{overflow:hidden;transition:max-height .35s ease;max-height:0}
+.collapse-body.open{max-height:1000px}
+
+/* ===== INSTALL PROMPT ===== */
+.install-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:14px 16px;display:none;align-items:center;gap:12px;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:slideDown .4s cubic-bezier(0.34,1.56,0.64,1)}
+.install-banner.show{display:flex}
+@keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+.install-banner-icon{width:44px;height:44px;border-radius:12px;overflow:hidden;flex-shrink:0;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.install-banner-icon img{width:100%;height:100%;object-fit:cover}
+.install-banner-text{flex:1}
+.install-banner-text strong{color:white;font-size:14px;display:block}
+.install-banner-text span{color:rgba(255,255,255,0.75);font-size:12px}
+.install-banner .btn-install{background:var(--gold);color:var(--bg);border:none;padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit}
+.install-banner .btn-dismiss{background:none;border:none;color:rgba(255,255,255,0.6);font-size:22px;cursor:pointer;padding:4px;line-height:1}
+
+/* iOS install instructions */
+.ios-install-hint{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:200;background:var(--bg-card);border:1px solid var(--teal);border-radius:var(--radius);padding:16px 20px;display:none;max-width:320px;box-shadow:var(--shadow-lg);text-align:center}
+.ios-install-hint.show{display:block;animation:fadeIn .35s ease}
+.ios-install-hint p{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px}
+.ios-install-hint .share-icon{display:inline-block;width:20px;height:20px;background:var(--teal);border-radius:4px;color:white;font-size:14px;line-height:20px;text-align:center;vertical-align:middle}
+.ios-install-hint button{background:var(--teal);color:white;border:none;padding:6px 16px;border-radius:16px;font-size:12px;cursor:pointer;font-family:inherit}
+
+/* ===== SHARE INVITE ===== */
+.invite-card{background:linear-gradient(135deg,rgba(212,168,67,0.12),rgba(43,110,138,0.12));border:1px dashed rgba(212,168,67,0.3);border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:14px}
+.invite-card p{font-size:13px;color:var(--text);margin-bottom:12px;line-height:1.5}
+.invite-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.invite-btns .btn{font-size:13px;padding:10px 16px}
+
+/* ===== PAGE TRANSITIONS ===== */
+.section{display:none;padding:16px 0}
+.section.active{display:block;animation:pageIn .35s cubic-bezier(0.25,0.46,0.45,0.94)}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Print */
+@media print{
+  body{background:white;color:black}
+  .nav,.header,.counter-bar,.install-banner{display:none}
+  .card{border:1px solid #ccc;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- Install Prompt Banner -->
+<div class="install-banner" id="installBanner">
+  <div class="install-banner-icon"><img src="./icons/icon-96x96.png" alt="Ramadan+" width="44" height="44"></div>
+  <div class="install-banner-text">
+    <strong>Install Ramadan Advantage</strong>
+    <span>Add to home screen for the best experience</span>
+  </div>
+  <button class="btn-install" onclick="installApp()">Install</button>
+  <button class="btn-dismiss" onclick="dismissInstall()">&times;</button>
+</div>
+
+<!-- iOS Install Hint -->
+<div class="ios-install-hint" id="iosInstallHint">
+  <p>To install this app, tap <span class="share-icon">&#8593;</span> Share, then<br><strong>"Add to Home Screen"</strong></p>
+  <button onclick="document.getElementById('iosInstallHint').classList.remove('show')">Got it</button>
+</div>
+
+<div class="container">
+  <!-- Header with Logo -->
+  <div class="header">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg">
+        <!-- Timelenders Arc -->
+        <path d="M80 72 Q200 -5 320 72" fill="none" stroke="#2b6e8a" stroke-width="7" stroke-linecap="round"/>
+        <!-- Clock hand accent -->
+        <rect x="196" y="28" width="8" height="24" rx="2" fill="#2b6e8a"/>
+        <!-- TIMELENDERS text -->
+        <text x="200" y="88" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="36" font-weight="800" fill="#f0f2f5" letter-spacing="4">TIMELENDERS</text>
+        <!-- Tagline -->
+        <text x="200" y="106" text-anchor="middle" font-family="'Inter',system-ui,sans-serif" font-size="8.5" fill="#6b7f99" letter-spacing="2.5" font-weight="500">SHAPING PASSIONS INTO A FORCE FOR GOOD</text>
+      </svg>
+    </div>
+    <div class="app-title">Ramadan Advantage</div>
+    <div class="app-subtitle">Your 30-Day Transformation Journey</div>
+    <div class="header-divider"></div>
+  </div>
+
+  <!-- Ramadan Counter -->
+  <div class="counter-bar" id="counterBar">
+    <div class="counter-item"><div class="num" id="ramadanDay">--</div><div class="lbl">Ramadan Day</div></div>
+    <div class="counter-divider"></div>
+    <div class="counter-item"><div class="num" id="daysLeft">--</div><div class="lbl">Days Left</div></div>
+    <div class="counter-divider"></div>
+    <div class="counter-item"><div class="num" id="currentStreak">0</div><div class="lbl">Day Streak</div></div>
+  </div>
+
+  <!-- ========== HOME / DASHBOARD ========== -->
+  <div class="section active" id="sec-home">
+    <!-- Greeting -->
+    <div class="greeting">
+      <div class="greeting-text" id="greetingText">Assalamu Alaikum</div>
+      <div class="greeting-sub" id="greetingSub">Make this Ramadan your best yet</div>
+    </div>
+
+    <!-- Today's Highlights -->
+    <div class="card highlight-card" style="margin-top:12px">
+      <div class="card-title" style="color:var(--text-bright)"><span class="card-icon">&#9788;</span> Today's Highlights</div>
+      <div class="highlights">
+        <div class="highlight-mini"><div class="hl-num hl-salah" id="hlSalah">0/8</div><div class="hl-label">Salah Today</div></div>
+        <div class="highlight-mini"><div class="hl-num hl-water" id="hlWater">0/8</div><div class="hl-label">Water Glasses</div></div>
+        <div class="highlight-mini"><div class="hl-num hl-quran" id="hlQuran">--</div><div class="hl-label">Quran</div></div>
+        <div class="highlight-mini"><div class="hl-num hl-streak" id="hlStreak">0</div><div class="hl-label">Day Streak</div></div>
+      </div>
+    </div>
+
+    <!-- Overall Progress -->
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num" id="statSalah">0%</div><div class="stat-label">Salah</div></div>
+      <div class="stat-card"><div class="stat-num" id="statQuran">0%</div><div class="stat-label">Quran</div></div>
+      <div class="stat-card"><div class="stat-num" id="statHealth">0%</div><div class="stat-label">Health</div></div>
+      <div class="stat-card"><div class="stat-num" id="statGoals">0%</div><div class="stat-label">Goals</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Overall Progress</div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span style="font-weight:500">Ramadan Journey</span><span style="color:var(--gold);font-weight:600" id="overallPct">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="overallBar" style="width:0%"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Today's Focus</div>
+      <div id="todayChecklist"></div>
+    </div>
+
+    <div class="card highlight-card">
+      <div class="card-title" style="color:var(--text-bright)"><span class="card-icon">&#9770;</span> Daily Reminder</div>
+      <p style="font-size:13px;line-height:1.7;color:var(--text);font-weight:450" id="dailyQuote"></p>
+    </div>
+  </div>
+
+  <!-- ========== GOALS (WorkBook) ========== -->
+  <div class="section" id="sec-goals">
+    <div class="sub-tabs" id="goalTabs">
+      <div class="sub-tab active" data-tab="spiritual">Spiritual</div>
+      <div class="sub-tab" data-tab="intellectual">Intellectual</div>
+      <div class="sub-tab" data-tab="physical">Physical</div>
+      <div class="sub-tab" data-tab="family">Family</div>
+      <div class="sub-tab" data-tab="ummati">Ummati</div>
+      <div class="sub-tab" data-tab="work">Work</div>
+      <div class="sub-tab" data-tab="habits">Bad Habits</div>
+      <div class="sub-tab" data-tab="dua">Dua List</div>
+    </div>
+
+    <!-- Spiritual Goals -->
+    <div class="goal-panel active" id="panel-spiritual">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128332;</span> Spiritual Goals</div>
+        <div class="field"><label>Salah: I will pray all five daily prayers with Jama'at</label>
+          <select data-goal="salah_commitment"><option value="">Select...</option><option value="all5">All 5 with Jama'at</option><option value="all5home">All 5 (at home if needed)</option><option value="working">Working on consistency</option></select></div>
+        <div class="field"><label>Taraweeh commitment</label>
+          <select data-goal="taraweeh_commitment"><option value="">Select...</option><option value="full">Full Taraweeh every night</option><option value="8rakat">8 Raka'at</option><option value="most">Most nights</option></select></div>
+        <div class="field"><label>Quran Recitation Target (Juzz per day)</label>
+          <input type="text" data-goal="quran_target" placeholder="e.g. 1 Juzz per day"></div>
+        <div class="field"><label>Zikr Goals (Astaghfar, Durood, Morning & Evening Azkaar)</label>
+          <textarea data-goal="zikr_goals" placeholder="Quantify your daily zikr targets..."></textarea></div>
+        <div class="field"><label>Sunnah(s) I will adopt this month</label>
+          <textarea data-goal="sunnah_goals" placeholder="List the sunnahs you will practice..."></textarea></div>
+        <div class="field"><label>Daily Charity/Sadaqah Amount</label>
+          <input type="text" data-goal="charity_amount" placeholder="e.g. PKR 500 daily"></div>
+        <div class="field"><label>Tahajjud Plan</label>
+          <input type="text" data-goal="tahajjud_plan" placeholder="e.g. 8 raka'at, 1 hour before Sehri"></div>
+        <div class="field"><label>I'tekaaf Plan (Last 10 days)</label>
+          <textarea data-goal="itekaaf_plan" placeholder="Your i'tekaaf intentions..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Intellectual Goals -->
+    <div class="goal-panel" id="panel-intellectual">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128214;</span> Intellectual Goals</div>
+        <div class="field"><label>Quran Translation & Tafseer Plan</label>
+          <textarea data-goal="tafseer_plan" placeholder="Which tafseer, how much per day..."></textarea></div>
+        <div class="field"><label>Hadith Study Plan</label>
+          <textarea data-goal="hadith_plan" placeholder="Which book, how many per day..."></textarea></div>
+        <div class="field"><label>Seerah Reading Plan</label>
+          <input type="text" data-goal="seerah_plan" placeholder="Book/source and pages per day"></div>
+        <div class="field"><label>Taraweeh Summary Understanding</label>
+          <input type="text" data-goal="taraweeh_summary" placeholder="How will you study the daily Taraweeh portion?"></div>
+        <div class="field"><label>Weekly Lecture/Dars Plan</label>
+          <input type="text" data-goal="lecture_plan" placeholder="Which scholar/lecture series?"></div>
+      </div>
+    </div>
+
+    <!-- Physical Goals -->
+    <div class="goal-panel" id="panel-physical">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128170;</span> Physical Goals</div>
+        <div class="field"><label>Food Quality Goals</label>
+          <textarea data-goal="food_quality" placeholder="What foods will you focus on?"></textarea></div>
+        <div class="field"><label>Food Quantity Goals</label>
+          <input type="text" data-goal="food_quantity" placeholder="e.g. 1/3 food, 1/3 drink, 1/3 air"></div>
+        <div class="field"><label>Walk / Exercise Plan</label>
+          <input type="text" data-goal="exercise_plan" placeholder="e.g. 30 min walk before Iftar"></div>
+        <div class="field"><label>Sleep Plan (Hours & Timings)</label>
+          <input type="text" data-goal="sleep_plan" placeholder="e.g. 11PM-4AM + Qailoolah 1-2PM"></div>
+        <div class="field"><label>Daily Step Target</label>
+          <input type="number" data-goal="step_target" placeholder="e.g. 10000"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128683;</span> Foods to Avoid</div>
+        <div class="field"><textarea data-goal="foods_avoid" placeholder="List foods to discuss with family and avoid..." rows="4"></textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#9989;</span> Foods to Include</div>
+        <div class="field"><textarea data-goal="foods_include" placeholder="List healthier food options to include..." rows="4"></textarea></div>
+      </div>
+    </div>
+
+    <!-- Family Goals -->
+    <div class="goal-panel" id="panel-family">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128106;</span> Spouse Goals</div>
+        <div class="field"><textarea data-goal="spouse_goals" placeholder="Goals related to your spouse this Ramadan..." rows="4"></textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128118;</span> Children Goals</div>
+        <div class="field"><textarea data-goal="children_goals" placeholder="Goals for your children this Ramadan..." rows="4"></textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128591;</span> Parents Goals</div>
+        <div class="field"><textarea data-goal="parents_goals" placeholder="Goals related to your parents this Ramadan..." rows="4"></textarea></div>
+      </div>
+    </div>
+
+    <!-- Ummati Goals -->
+    <div class="goal-panel" id="panel-ummati">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#127758;</span> Ummati / Contribution Goals</div>
+        <div class="field"><label>Da'wah Plan</label>
+          <textarea data-goal="dawah_plan" placeholder="How will you share the message?"></textarea></div>
+        <div class="field"><label>People to speak to about the vision of Prophet Muhammad (sas)</label>
+          <textarea data-goal="dawah_people" placeholder="Names and number of people..."></textarea></div>
+        <div class="field"><label>Hours/Days in the way of Allah (swt)</label>
+          <input type="text" data-goal="fisabilillah" placeholder="e.g. 4 hours every weekend"></div>
+        <div class="field"><label>Ummati Project to Volunteer For</label>
+          <textarea data-goal="ummati_project" placeholder="Project details..."></textarea></div>
+        <div class="field"><label>Neighbors/Relatives/Co-workers who need help</label>
+          <textarea data-goal="help_list" placeholder="List names..."></textarea></div>
+        <div class="field"><label>Relationships to Rectify</label>
+          <textarea data-goal="rectify_relationships" placeholder="Names and when you will reach out..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Work Goals -->
+    <div class="goal-panel" id="panel-work">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128188;</span> Work Goals</div>
+        <div class="field"><label>Am I fulfilling work responsibilities to the best of my ability?</label>
+          <select data-goal="work_fulfillment"><option value="">Select...</option><option value="yes">Yes</option><option value="no">No, needs improvement</option></select></div>
+        <div class="field"><label>Unfulfilled Commitments</label>
+          <textarea data-goal="unfulfilled_commitments" placeholder="List any pending commitments and renegotiation plans..."></textarea></div>
+        <div class="field"><label>Monthly Work To-Do List</label>
+          <textarea data-goal="work_todos" placeholder="Break down into weekly to-dos..." rows="5"></textarea></div>
+      </div>
+    </div>
+
+    <!-- Bad Habits Tracker -->
+    <div class="goal-panel" id="panel-habits">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128260;</span> Bad Habits — 3 Strikes Tracker</div>
+        <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.5">Track habits to break. 3 strikes means you recommit with extra effort!</p>
+        <div id="habitsContainer"></div>
+        <div class="field" style="margin-top:14px">
+          <label>Add a habit to track</label>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="newHabitInput" placeholder="e.g. Wasting time on social media" style="flex:1">
+            <button class="btn btn-gold" onclick="addHabit()" style="padding:10px 18px;border-radius:var(--radius-sm)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dua List -->
+    <div class="goal-panel" id="panel-dua">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128588;</span> My Targeted Dua List</div>
+        <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.5">What do you want to ask from Allah (swt) this Ramadan?</p>
+        <div id="duaContainer"></div>
+        <div class="field" style="margin-top:14px">
+          <div style="display:flex;gap:8px">
+            <input type="text" id="newDuaInput" placeholder="Add a dua..." style="flex:1">
+            <button class="btn btn-gold" onclick="addDua()" style="padding:10px 18px;border-radius:var(--radius-sm)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card highlight-card">
+        <div class="card-title" style="font-size:13px;color:var(--text-bright)"><span class="card-icon">&#9201;</span> Best Times to Supplicate</div>
+        <p style="font-size:12px;line-height:2;color:var(--text-dim)">
+          The last third of the night &bull; Between Adhan and Iqamah &bull; Whilst in Sujood &bull; At Suhoor &bull; Before Iftaar &bull; An hour on Friday &bull; Laylatul Qadr &bull; After Fard Salah &bull; When it rains &bull; Whilst travelling
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== DAILY TRACKER ========== -->
+  <div class="section" id="sec-daily">
+    <div class="day-selector" id="daySelector"></div>
+
+    <div class="card">
+      <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 6v6l4 2"/></svg>Day <span id="currentDayNum">1</span> — Salah</div>
+      <div id="salahChecks"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-icon">&#128214;</span> Learning</div>
+      <div id="learningChecks"></div>
+    </div>
+
+    <div class="card">
+      <div class="collapse-header" onclick="toggleCollapse(this)">
+        <div class="card-title"><span class="card-icon">&#128213;</span> Quran</div>
+        <span class="collapse-arrow">&#9662;</span>
+      </div>
+      <div class="collapse-body open">
+        <div class="field" style="margin-top:10px"><label>Juzz Completed</label><input type="text" data-daily="quran_juzz" placeholder="e.g. 1"></div>
+        <div class="field"><label>Surah(s)</label><input type="text" data-daily="quran_surah" placeholder="Which surah(s)?"></div>
+        <div class="field"><label>Verses Memorized</label><input type="text" data-daily="quran_memorized" placeholder="New verses memorized"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-icon">&#9728;&#65039;</span> Sunnah Practices</div>
+      <div id="sunnahChecks"></div>
+    </div>
+
+    <div class="card">
+      <div class="collapse-header" onclick="toggleCollapse(this)">
+        <div class="card-title"><span class="card-icon">&#129309;</span> Contribution</div>
+        <span class="collapse-arrow">&#9662;</span>
+      </div>
+      <div class="collapse-body open">
+        <div class="field" style="margin-top:10px"><label>How did you contribute today?</label><input type="text" data-daily="contribution_how" placeholder="Charity, help, da'wah..."></div>
+        <div class="field"><label>Where?</label><input type="text" data-daily="contribution_where" placeholder="Masjid, neighborhood, online..."></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="collapse-header" onclick="toggleCollapse(this)">
+        <div class="card-title"><span class="card-icon">&#128188;</span> Work Goals</div>
+        <span class="collapse-arrow">&#9662;</span>
+      </div>
+      <div class="collapse-body open">
+        <div class="field" style="margin-top:10px"><label>Top 3 MITs (Most Important To-dos)</label>
+          <input type="text" data-daily="mit1" placeholder="MIT #1" style="margin-bottom:8px">
+          <input type="text" data-daily="mit2" placeholder="MIT #2" style="margin-bottom:8px">
+          <input type="text" data-daily="mit3" placeholder="MIT #3">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="collapse-header" onclick="toggleCollapse(this)">
+        <div class="card-title"><span class="card-icon">&#128106;</span> Family Goals Today</div>
+        <span class="collapse-arrow">&#9662;</span>
+      </div>
+      <div class="collapse-body open">
+        <div class="field" style="margin-top:10px"><textarea data-daily="family_today" placeholder="What did you do for your family today?" rows="3"></textarea></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-icon">&#128173;</span> Today's Reflection</div>
+      <div class="field"><textarea data-daily="reflection" placeholder="Reflect on your day... What went well? What can improve?" rows="4"></textarea></div>
+    </div>
+
+    <button class="btn btn-gold btn-full" onclick="markDayComplete()" style="margin-top:8px">Mark Day Complete</button>
+  </div>
+
+  <!-- ========== HEALTH ========== -->
+  <div class="section" id="sec-health">
+    <div class="sub-tabs" id="healthTabs">
+      <div class="sub-tab active" data-htab="hydration">Hydration</div>
+      <div class="sub-tab" data-htab="menu">Menu Plan</div>
+      <div class="sub-tab" data-htab="exercise">Exercise</div>
+      <div class="sub-tab" data-htab="tips">Tips</div>
+    </div>
+
+    <!-- Hydration -->
+    <div class="health-panel active" id="hpanel-hydration">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128167;</span> Hydration Tracker — Day <span id="hydrationDay">1</span></div>
+        <div class="field"><label>Daily Goal (glasses)</label>
+          <input type="number" id="waterGoal" value="8" min="1" max="20" onchange="saveHealthData()"></div>
+        <p style="font-size:12px;color:var(--text-dim);margin-bottom:10px">Tap to fill each glass:</p>
+        <div class="hydration-grid" id="waterGrid"></div>
+        <div style="text-align:center;margin-top:10px;font-size:14px;font-weight:600"><span id="waterCount" style="color:var(--teal-light)">0</span> <span style="color:var(--text-dim)">/ <span id="waterTotal">8</span> glasses</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128336;</span> Hydration Schedule</div>
+        <div id="hydrationSchedule"></div>
+      </div>
+    </div>
+
+    <!-- Menu Plan -->
+    <div class="health-panel" id="hpanel-menu">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#127869;</span> Menu Plan — Day <span id="menuDay">1</span></div>
+        <div class="field"><label>Sehri</label><textarea data-health="sehri" placeholder="What will you eat for Sehri?" rows="2"></textarea></div>
+        <div class="field"><label>Iftar Snack</label><textarea data-health="iftar_snack" placeholder="Dates, water, light snack..." rows="2"></textarea></div>
+        <div class="field"><label>Dinner</label><textarea data-health="dinner" placeholder="Main meal plan..." rows="2"></textarea></div>
+        <div class="field"><label>Notes</label><input type="text" data-health="meal_notes" placeholder="Any dietary notes..."></div>
+      </div>
+    </div>
+
+    <!-- Exercise -->
+    <div class="health-panel" id="hpanel-exercise">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#127939;</span> Exercise — Day <span id="exerciseDay">1</span></div>
+        <div class="field"><label>Exercise Timing</label>
+          <select data-health="exercise_timing">
+            <option value="">Select your slot...</option>
+            <option value="before_iftar">1 hour before Iftar (brisk walk)</option>
+            <option value="after_iftar">After breaking fast</option>
+            <option value="after_taraweeh">After Taraweeh / before Sehri</option>
+          </select></div>
+        <div class="field"><label>Duration (minutes)</label><input type="number" data-health="exercise_duration" placeholder="30"></div>
+        <div class="field"><label>Activity</label><input type="text" data-health="exercise_activity" placeholder="Walking, stretching, etc."></div>
+        <div class="field"><label>Steps Today</label><input type="number" data-health="steps" placeholder="e.g. 8000"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#128694;</span> NEAT Movement</div>
+        <p style="font-size:11px;color:var(--text-dim);margin-bottom:10px;line-height:1.5">Non Exercise Activity Thermogenesis — switch sitting to standing/walking</p>
+        <div class="field"><label>Standing Activity</label><input type="text" data-health="neat_standing" placeholder="e.g. Listening to Tafseer lecture"></div>
+        <div class="field"><label>Walking Activity</label><input type="text" data-health="neat_walking" placeholder="e.g. 10,000 steps target"></div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="health-panel" id="hpanel-tips">
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#129388;</span> Fluid-Filled Foods</div>
+        <p style="font-size:13px;line-height:1.8"><strong style="color:var(--teal-light)">90-100% water:</strong> Water, fat-free milk, cantaloupe, strawberries, watermelon, lettuce, cabbage, celery, spinach</p>
+        <p style="font-size:13px;line-height:1.8;margin-top:8px"><strong style="color:var(--teal-light)">70-89% water:</strong> Bananas, grapes, oranges, pears, pineapples, carrots, broccoli, avocados, yogurt, cottage cheese</p>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#9878;&#65039;</span> Balanced Nutrition</div>
+        <p style="font-size:13px;line-height:1.8"><strong style="color:var(--gold)">Complex Carbs:</strong> Whole wheat grains, brown rice, beans, nuts</p>
+        <p style="font-size:13px;line-height:1.8"><strong style="color:var(--gold)">Protein:</strong> Lean meat, fish, low-fat dairy, legumes</p>
+        <p style="font-size:13px;line-height:1.8"><strong style="color:var(--gold)">Healthy Fats:</strong> Olive oil, avocados, salmon, walnuts, almonds</p>
+      </div>
+      <div class="card highlight-card">
+        <div class="card-title" style="color:var(--text-bright)"><span class="card-icon">&#127869;&#65039;</span> Sunnah Portion Guide</div>
+        <p style="font-size:13px;line-height:1.8;font-style:italic;color:var(--text-dim)">Fill one third with food, one third with drink, and one third with air.</p>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-icon">&#9889;</span> Energy-Saving Tips</div>
+        <p style="font-size:13px;line-height:2">
+          Simpler dishes = less cooking time<br>
+          Avoid frying (drains energy)<br>
+          Use smaller utensils<br>
+          Label water glasses per family member<br>
+          Organize grocery list by aisle<br>
+          Essential cleaning only during Ramadan
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SETTINGS ========== -->
+  <div class="section" id="sec-settings">
+    <div class="card">
+      <div class="card-title"><span class="card-icon">&#128197;</span> Ramadan Settings</div>
+      <div class="field"><label>Ramadan Start Date (1st Ramadan 1447)</label>
+        <input type="date" id="ramadanStartDate" value="2026-02-19" onchange="saveSettings()"></div>
+      <div class="field"><label>Your Name</label>
+        <input type="text" id="userName" placeholder="For your pledge..." onchange="saveSettings()"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-icon">&#128276;</span> Notifications</div>
+      <div class="check-row">
+        <div class="check-box" id="notifSehri" onclick="toggleNotif('sehri')"></div>
+        <span class="check-label">Sehri Reminder</span>
+      </div>
+      <div class="check-row">
+        <div class="check-box" id="notifIftar" onclick="toggleNotif('iftar')"></div>
+        <span class="check-label">Iftar Reminder</span>
+      </div>
+      <div class="check-row">
+        <div class="check-box" id="notifReflection" onclick="toggleNotif('reflection')"></div>
+        <span class="check-label">Daily Reflection Reminder</span>
+      </div>
+      <div class="check-row">
+        <div class="check-box" id="notifTahajjud" onclick="toggleNotif('tahajjud')"></div>
+        <span class="check-label">Tahajjud Reminder</span>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="requestNotifications()" style="margin-top:14px">Enable Notifications</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-icon">&#128228;</span> Export & Share</div>
+      <button class="btn btn-gold btn-full" onclick="exportProgress()" style="margin-bottom:10px">Export Progress Report</button>
+      <button class="btn btn-outline btn-full" onclick="shareProgress()">Share Summary</button>
+    </div>
+
+    <div class="invite-card">
+      <p>Know someone who'd benefit from a structured Ramadan?<br>Share this app with them!</p>
+      <div class="invite-btns">
+        <button class="btn btn-gold" onclick="inviteFriend()">Share App Link</button>
+        <button class="btn btn-outline" onclick="copyAppLink()">Copy Link</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:var(--danger)"><span class="card-icon">&#128465;</span> Data Management</div>
+      <button class="btn btn-full" onclick="resetData()" style="background:rgba(248,113,113,0.1);color:var(--danger);border:1px solid rgba(248,113,113,0.3)">Reset All Data</button>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:10px;text-align:center">All data is stored locally on your device</p>
+    </div>
+
+    <div style="text-align:center;padding:24px 0;font-size:11px;color:var(--text-dim)">
+      <svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg" style="width:120px;height:auto;opacity:0.5;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto">
+        <path d="M80 42 Q200 5 320 42" fill="none" stroke="#2b6e8a" stroke-width="5" stroke-linecap="round"/>
+        <rect x="196" y="18" width="6" height="16" rx="1.5" fill="#2b6e8a"/>
+        <text x="200" y="56" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#6b7f99" letter-spacing="3">TIMELENDERS</text>
+      </svg>
+      <p style="margin-top:4px">Yameenuddin Ahmed — CEO</p>
+      <p style="margin-top:2px">timelenders.com | ra@timelenders.com</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Navigation -->
+<nav class="nav">
+  <button class="nav-btn active" data-section="home" onclick="switchSection('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Home
+  </button>
+  <button class="nav-btn" data-section="goals" onclick="switchSection('goals')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals
+  </button>
+  <button class="nav-btn" data-section="daily" onclick="switchSection('daily')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Daily
+  </button>
+  <button class="nav-btn" data-section="health" onclick="switchSection('health')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>Health
+  </button>
+  <button class="nav-btn" data-section="settings" onclick="switchSection('settings')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>More
+  </button>
+</nav>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Export Modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <h3>Progress Report</h3>
+    <div id="exportContent"></div>
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button class="btn btn-gold" onclick="copyExport()" style="flex:1">Copy to Clipboard</button>
+      <button class="btn btn-outline" onclick="closeModal('exportModal')" style="flex:1">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA LAYER =====
+const LS = {
+  get(k, def = null) { try { return JSON.parse(localStorage.getItem('ra_' + k)) ?? def; } catch { return def; } },
+  set(k, v) { localStorage.setItem('ra_' + k, JSON.stringify(v)); }
+};
+
+// ===== STATE =====
+let currentDay = 1;
+let currentSection = 'home';
+
+const SALAH_ITEMS = ['Fajr', 'Zuhr', 'Asr', 'Maghrib', 'Isha', 'Taraweeh', 'Tahajjud', 'Nawafil'];
+const LEARNING_ITEMS = ['Translation', 'Tafseer', 'Hadith', 'Fiqh'];
+const SUNNAH_ITEMS = ['Miswak', 'Keeping Beard / Hijab', 'Smiling at parents, spouse, kids', 'Controlled Anger / Practiced Patience', 'Sila-e-Rahmi'];
+const HYDRATION_SLOTS = ['Tahajjud', 'Sehri', 'Breaking Fast', 'After Maghrib', 'Dinner', 'Btwn Dinner & Isha', 'Taraweeh (Sips)', 'Before Bed'];
+
+const REMINDERS = [
+  "Ramadan is a glimpse of the person you can be every single day.",
+  "The son of Adam does not fill any vessel worse than his stomach.",
+  "Whoever fasts Ramadan with faith and seeking reward, all past sins are forgiven.",
+  "When Ramadan begins, the gates of Paradise are opened and the gates of Hell are closed.",
+  "Make dua at Suhoor, for it is a blessed time when prayers are answered.",
+  "Do not waste these precious days \u2014 every moment is an opportunity for reward.",
+  "The best charity is that given in Ramadan.",
+  "Ramadan is the month of patience, and the reward of patience is Paradise.",
+  "Whoever does not give up lying and evil actions, Allah is not in need of his leaving food and drink.",
+  "This month a night is better than a thousand months \u2014 seek Laylatul Qadr!",
+  "Plan your day, every day. A Ramadan without a plan is a journey without a destination.",
+  "Your character during fasting reflects your true self \u2014 let it be beautiful.",
+  "Fasting is a shield; when one of you is fasting, avoid obscene speech and arguments.",
+  "The du'a of the fasting person is not refused.",
+  "Be generous this month \u2014 the Prophet (sas) was most generous during Ramadan.",
+  "Recite Quran, for it will come as an intercessor on the Day of Judgment.",
+  "Strengthen ties of kinship \u2014 it is beloved to Allah (swt).",
+  "Control your anger \u2014 the strong person is not the one who wrestles, but who controls himself.",
+  "Feed others to purify your soul and multiply your rewards.",
+  "Seek forgiveness \u2014 Allah's mercy and forgiveness are abundant in this month.",
+  "Tahajjud in the last third of the night is when Allah descends to the lowest heaven.",
+  "Every good deed is multiplied manifold in Ramadan \u2014 seize every opportunity.",
+  "Simplify your meals, amplify your worship.",
+  "The last 10 nights are the most blessed \u2014 intensify your worship.",
+  "I'tekaaf is seclusion with Allah \u2014 the ultimate spiritual retreat.",
+  "Prepare your Eid with joy, for you have earned it through worship and sacrifice.",
+  "Take from Ramadan habits that will carry you through the rest of the year.",
+  "Ask yourself: if this were my last Ramadan, am I making it count?",
+  "Every Ramadan is a chance for transformation \u2014 don't let it pass unchanged.",
+  "May Allah accept our fasts, prayers, and good deeds. Aameen."
+];
+
+// ===== RAMADAN COUNTER =====
+function getRamadanInfo() {
+  const startStr = document.getElementById('ramadanStartDate')?.value || LS.get('settings',{}).startDate || '2026-02-19';
+  const start = new Date(startStr + 'T00:00:00');
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = Math.floor((today - start) / 86400000);
+  const day = diff + 1;
+  const isActive = day >= 1 && day <= 30;
+  return { start, day: isActive ? day : (day < 1 ? 0 : 30), daysLeft: isActive ? 30 - day : (day < 1 ? Math.abs(diff) : 0), isActive, isPre: day < 1, isPost: day > 30 };
+}
+
+function updateCounter() {
+  const info = getRamadanInfo();
+  const dayEl = document.getElementById('ramadanDay');
+  const leftEl = document.getElementById('daysLeft');
+  if (info.isActive) {
+    dayEl.textContent = info.day;
+    leftEl.textContent = info.daysLeft;
+  } else if (info.isPre) {
+    dayEl.textContent = '\u2014';
+    leftEl.textContent = info.daysLeft;
+    document.querySelector('#counterBar .counter-item:first-child .lbl').textContent = 'Not Started';
+    document.querySelector('#counterBar .counter-item:nth-child(3) .lbl').textContent = 'Days Until';
+  } else {
+    dayEl.textContent = '30'; leftEl.textContent = '0';
+  }
+  if (info.isActive) currentDay = info.day;
+}
+
+// ===== NAVIGATION =====
+function switchSection(name) {
+  currentSection = name;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.section === name));
+  if (name === 'daily') { buildDaySelector(); loadDailyData(); scrollToCurrentDay(); }
+  if (name === 'health') { loadHealthData(); }
+  if (name === 'home') { updateDashboard(); updateStreak(); updateGreeting(); }
+}
+
+// ===== GREETING =====
+function updateGreeting() {
+  const settings = LS.get('settings', {});
+  const name = settings.name || '';
+  const hour = new Date().getHours();
+  let timeGreeting = 'Assalamu Alaikum';
+  let sub = 'Make this Ramadan your best yet';
+
+  const info = getRamadanInfo();
+  if (hour >= 3 && hour < 6) { sub = 'Rise for Tahajjud and Sehri'; }
+  else if (hour >= 6 && hour < 12) { sub = 'Start your day with purpose and prayer'; }
+  else if (hour >= 12 && hour < 16) { sub = 'Stay strong \u2014 keep your fast with patience'; }
+  else if (hour >= 16 && hour < 19) { sub = 'Iftar is near \u2014 increase your dua'; }
+  else if (hour >= 19 && hour < 22) { sub = 'Time for Taraweeh and reflection'; }
+  else { sub = 'Rest well \u2014 tomorrow is another blessed day'; }
+
+  if (info.isPre) sub = 'Ramadan starts in ' + info.daysLeft + ' days \u2014 prepare your heart';
+
+  document.getElementById('greetingText').textContent = timeGreeting + (name ? ', ' + name : '');
+  document.getElementById('greetingSub').textContent = sub;
+}
+
+// ===== GOAL TABS =====
+function initGoalTabs() {
+  document.querySelectorAll('#goalTabs .sub-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#goalTabs .sub-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.goal-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+// ===== HEALTH TABS =====
+function initHealthTabs() {
+  document.querySelectorAll('#healthTabs .sub-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#healthTabs .sub-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.health-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('hpanel-' + tab.dataset.htab).classList.add('active');
+    });
+  });
+}
+
+// ===== GOALS DATA =====
+function initGoals() {
+  const goals = LS.get('goals', {});
+  document.querySelectorAll('[data-goal]').forEach(el => {
+    const key = el.dataset.goal;
+    if (goals[key]) el.value = goals[key];
+    el.addEventListener('change', () => { goals[key] = el.value; LS.set('goals', goals); });
+    el.addEventListener('input', debounce(() => { goals[key] = el.value; LS.set('goals', goals); }, 500));
+  });
+}
+
+// ===== DAY SELECTOR =====
+function buildDaySelector() {
+  const sel = document.getElementById('daySelector');
+  sel.innerHTML = '';
+  const info = getRamadanInfo();
+  for (let i = 1; i <= 30; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'day-btn';
+    btn.textContent = i;
+    if (i === currentDay) btn.classList.add('active');
+    if (info.isActive && i === info.day) btn.classList.add('today');
+    const dayData = LS.get('day_' + i, {});
+    if (dayData._complete) btn.classList.add('completed');
+    btn.onclick = () => { currentDay = i; loadDailyData(); buildDaySelector(); };
+    sel.appendChild(btn);
+  }
+}
+
+function scrollToCurrentDay() {
+  setTimeout(() => {
+    const active = document.querySelector('.day-btn.active');
+    if (active) active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, 100);
+}
+
+// ===== DAILY DATA =====
+function buildChecklist(containerId, items, category) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  const dayData = LS.get('day_' + currentDay, {});
+  items.forEach(item => {
+    const key = category + '_' + item.replace(/[^a-zA-Z]/g, '');
+    const row = document.createElement('div');
+    row.className = 'check-row';
+    const box = document.createElement('div');
+    box.className = 'check-box' + (dayData[key] ? ' checked' : '');
+    box.onclick = () => {
+      box.classList.toggle('checked');
+      const d = LS.get('day_' + currentDay, {});
+      d[key] = box.classList.contains('checked');
+      LS.set('day_' + currentDay, d);
+    };
+    const label = document.createElement('span');
+    label.className = 'check-label';
+    label.textContent = item;
+    row.appendChild(box); row.appendChild(label);
+    container.appendChild(row);
+  });
+}
+
+function loadDailyData() {
+  document.getElementById('currentDayNum').textContent = currentDay;
+  document.getElementById('hydrationDay').textContent = currentDay;
+  document.getElementById('menuDay').textContent = currentDay;
+  document.getElementById('exerciseDay').textContent = currentDay;
+
+  buildChecklist('salahChecks', SALAH_ITEMS, 'salah');
+  buildChecklist('learningChecks', LEARNING_ITEMS, 'learning');
+  buildChecklist('sunnahChecks', SUNNAH_ITEMS, 'sunnah');
+
+  const dayData = LS.get('day_' + currentDay, {});
+  document.querySelectorAll('[data-daily]').forEach(el => {
+    el.value = dayData['field_' + el.dataset.daily] || '';
+    el.onchange = el.oninput = debounce(() => {
+      const d = LS.get('day_' + currentDay, {});
+      d['field_' + el.dataset.daily] = el.value;
+      LS.set('day_' + currentDay, d);
+    }, 400);
+  });
+}
+
+function markDayComplete() {
+  const d = LS.get('day_' + currentDay, {});
+  d._complete = true;
+  LS.set('day_' + currentDay, d);
+  buildDaySelector();
+  updateStreak();
+  showToast('Day ' + currentDay + ' marked complete! \u2713');
+}
+
+// ===== COLLAPSE TOGGLE =====
+function toggleCollapse(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// ===== HEALTH DATA =====
+function initWaterGrid() {
+  const grid = document.getElementById('waterGrid');
+  grid.innerHTML = '';
+  const goal = parseInt(document.getElementById('waterGoal').value) || 8;
+  document.getElementById('waterTotal').textContent = goal;
+  let dayWater = LS.get('water_' + currentDay, []);
+  while (dayWater.length < goal) dayWater.push(false);
+  if (dayWater.length > goal) dayWater = dayWater.slice(0, goal);
+  LS.set('water_' + currentDay, dayWater);
+
+  for (let i = 0; i < goal; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'water-drop' + (dayWater[i] ? ' filled' : '');
+    drop.textContent = '\uD83D\uDCA7';
+    drop.onclick = () => {
+      drop.classList.toggle('filled');
+      const w = LS.get('water_' + currentDay, []);
+      while (w.length < goal) w.push(false);
+      w[i] = drop.classList.contains('filled');
+      LS.set('water_' + currentDay, w);
+      document.getElementById('waterCount').textContent = w.filter(Boolean).length;
+    };
+    grid.appendChild(drop);
+  }
+  document.getElementById('waterCount').textContent = dayWater.filter(Boolean).length;
+}
+
+function initHydrationSchedule() {
+  const container = document.getElementById('hydrationSchedule');
+  container.innerHTML = '';
+  const schedData = LS.get('hydration_sched_' + currentDay, {});
+  HYDRATION_SLOTS.forEach(slot => {
+    const key = slot.replace(/[^a-zA-Z]/g, '');
+    const row = document.createElement('div');
+    row.className = 'check-row';
+    const box = document.createElement('div');
+    box.className = 'check-box' + (schedData[key] ? ' checked' : '');
+    box.onclick = () => {
+      box.classList.toggle('checked');
+      const s = LS.get('hydration_sched_' + currentDay, {});
+      s[key] = box.classList.contains('checked');
+      LS.set('hydration_sched_' + currentDay, s);
+    };
+    const label = document.createElement('span');
+    label.className = 'check-label';
+    label.textContent = slot;
+    row.appendChild(box); row.appendChild(label);
+    container.appendChild(row);
+  });
+}
+
+function loadHealthData() {
+  initWaterGrid();
+  initHydrationSchedule();
+  const hData = LS.get('health_' + currentDay, {});
+  document.querySelectorAll('[data-health]').forEach(el => {
+    el.value = hData[el.dataset.health] || '';
+    el.onchange = el.oninput = debounce(() => {
+      const h = LS.get('health_' + currentDay, {});
+      h[el.dataset.health] = el.value;
+      LS.set('health_' + currentDay, h);
+    }, 400);
+  });
+}
+
+function saveHealthData() {
+  initWaterGrid();
+}
+
+// ===== BAD HABITS =====
+function initHabits() {
+  const defaults = ['Wasting time on social media', 'Backbiting', 'Anger', 'Delaying Prayer', 'Overeating'];
+  let habits = LS.get('habits', null);
+  if (!habits) { habits = defaults.map(h => ({ name: h, strikes: 0 })); LS.set('habits', habits); }
+  renderHabits();
+}
+
+function renderHabits() {
+  const habits = LS.get('habits', []);
+  const container = document.getElementById('habitsContainer');
+  container.innerHTML = '';
+  habits.forEach((h, i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)';
+    row.innerHTML = `
+      <span style="flex:1;font-size:13px;font-weight:450;${h.strikes>=3?'text-decoration:line-through;color:var(--success)':''}">${h.name}</span>
+      <div style="display:flex;gap:5px">${[0,1,2].map(s => `<div style="width:22px;height:22px;border-radius:50%;border:2px solid ${s<h.strikes?'var(--danger)':'rgba(255,255,255,0.1)'};background:${s<h.strikes?'rgba(248,113,113,0.2)':'transparent'};cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .2s" onclick="strikeHabit(${i})">${s<h.strikes?'\u2715':''}</div>`).join('')}</div>
+      <button onclick="removeHabit(${i})" style="background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:18px;padding:4px">\u00d7</button>`;
+    container.appendChild(row);
+  });
+}
+
+function addHabit() {
+  const input = document.getElementById('newHabitInput');
+  if (!input.value.trim()) return;
+  const habits = LS.get('habits', []);
+  habits.push({ name: input.value.trim(), strikes: 0 });
+  LS.set('habits', habits);
+  input.value = '';
+  renderHabits();
+}
+
+function strikeHabit(i) {
+  const habits = LS.get('habits', []);
+  if (habits[i].strikes < 3) habits[i].strikes++;
+  LS.set('habits', habits);
+  renderHabits();
+  if (habits[i].strikes >= 3) showToast('3 strikes! Time to recommit with extra effort');
+}
+
+function removeHabit(i) {
+  const habits = LS.get('habits', []);
+  habits.splice(i, 1);
+  LS.set('habits', habits);
+  renderHabits();
+}
+
+// ===== DUA LIST =====
+function initDuas() {
+  let duas = LS.get('duas', []);
+  renderDuas();
+}
+
+function renderDuas() {
+  const duas = LS.get('duas', []);
+  const container = document.getElementById('duaContainer');
+  container.innerHTML = '';
+  duas.forEach((d, i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.03)';
+    row.innerHTML = `<span style="color:var(--gold);font-weight:700;font-size:13px;min-width:24px">${i+1}.</span>
+      <span style="flex:1;font-size:13px;font-weight:450;line-height:1.5">${d}</span>
+      <button onclick="removeDua(${i})" style="background:none;border:none;color:var(--text-dim);cursor:pointer;padding:4px">\u00d7</button>`;
+    container.appendChild(row);
+  });
+}
+
+function addDua() {
+  const input = document.getElementById('newDuaInput');
+  if (!input.value.trim()) return;
+  const duas = LS.get('duas', []);
+  duas.push(input.value.trim());
+  LS.set('duas', duas);
+  input.value = '';
+  renderDuas();
+}
+
+function removeDua(i) {
+  const duas = LS.get('duas', []);
+  duas.splice(i, 1);
+  LS.set('duas', duas);
+  renderDuas();
+}
+
+// ===== DASHBOARD =====
+function updateDashboard() {
+  let totalSalah = 0;
+  let totalQuran = 0;
+  let totalWaterFilled = 0, totalWaterGoal = 0;
+  let completeDays = 0;
+  let daysWithData = 0;
+
+  const waterGoal = parseInt(document.getElementById('waterGoal')?.value) || 8;
+
+  // Today's salah count for highlights
+  const todayData = LS.get('day_' + currentDay, {});
+  let todaySalah = 0;
+  SALAH_ITEMS.forEach(s => { if (todayData['salah_' + s.replace(/[^a-zA-Z]/g, '')]) todaySalah++; });
+  const todayWater = LS.get('water_' + currentDay, []);
+  const todayWaterCount = todayWater.filter(Boolean).length;
+
+  // Update highlights
+  document.getElementById('hlSalah').textContent = todaySalah + '/' + SALAH_ITEMS.length;
+  document.getElementById('hlWater').textContent = todayWaterCount + '/' + waterGoal;
+  document.getElementById('hlQuran').textContent = todayData.field_quran_juzz || '--';
+
+  for (let d = 1; d <= 30; d++) {
+    const dayData = LS.get('day_' + d, {});
+    if (dayData._complete) completeDays++;
+
+    const hasData = Object.keys(dayData).some(k => k !== '_complete' && dayData[k]);
+    const water = LS.get('water_' + d, []);
+    const hasWater = water.filter(Boolean).length > 0;
+    if (hasData || hasWater) daysWithData++;
+
+    SALAH_ITEMS.forEach(s => {
+      if (dayData['salah_' + s.replace(/[^a-zA-Z]/g, '')]) totalSalah++;
+    });
+    if (dayData.field_quran_juzz) totalQuran++;
+
+    totalWaterFilled += water.filter(Boolean).length;
+    totalWaterGoal += waterGoal;
+  }
+
+  const info = getRamadanInfo();
+  const activeDays = info.isActive ? info.day : (info.isPost ? 30 : Math.max(daysWithData, 0));
+  const denomSalah = activeDays * SALAH_ITEMS.length;
+  const salahPct = denomSalah > 0 ? Math.round(totalSalah / denomSalah * 100) : 0;
+  const quranPct = activeDays > 0 ? Math.round(totalQuran / activeDays * 100) : 0;
+  const denomWater = activeDays * waterGoal;
+  const healthPct = denomWater > 0 ? Math.round(totalWaterFilled / denomWater * 100) : 0;
+
+  const goals = LS.get('goals', {});
+  const goalKeys = Object.keys(goals);
+  const filledGoals = goalKeys.filter(k => goals[k] && goals[k].trim()).length;
+  const goalPct = Math.min(100, Math.round(filledGoals / 15 * 100));
+
+  document.getElementById('statSalah').textContent = salahPct + '%';
+  document.getElementById('statQuran').textContent = quranPct + '%';
+  document.getElementById('statHealth').textContent = healthPct + '%';
+  document.getElementById('statGoals').textContent = goalPct + '%';
+
+  const overall = Math.round((salahPct + quranPct + healthPct + goalPct) / 4);
+  document.getElementById('overallPct').textContent = overall + '%';
+  document.getElementById('overallBar').style.width = overall + '%';
+
+  // Today's quick checklist
+  const todayContainer = document.getElementById('todayChecklist');
+  const todayD = LS.get('day_' + currentDay, {});
+  const quickItems = [
+    { label: 'Fajr', key: 'salah_Fajr' },
+    { label: 'Zuhr', key: 'salah_Zuhr' },
+    { label: 'Asr', key: 'salah_Asr' },
+    { label: 'Maghrib', key: 'salah_Maghrib' },
+    { label: 'Isha', key: 'salah_Isha' },
+    { label: 'Taraweeh', key: 'salah_Taraweeh' },
+    { label: 'Quran', key: 'field_quran_juzz' }
+  ];
+  todayContainer.innerHTML = quickItems.map(item => {
+    const done = item.key.startsWith('field_') ? !!todayD[item.key] : !!todayD[item.key];
+    return `<div class="check-row" style="padding:7px 0">
+      <div class="check-box${done ? ' checked' : ''}" onclick="quickToggle('${item.key}')"></div>
+      <span class="check-label" style="font-size:13px">${item.label}</span></div>`;
+  }).join('');
+
+  // Daily quote
+  document.getElementById('dailyQuote').textContent = REMINDERS[(currentDay - 1) % REMINDERS.length];
+}
+
+function quickToggle(key) {
+  const d = LS.get('day_' + currentDay, {});
+  d[key] = !d[key];
+  LS.set('day_' + currentDay, d);
+  updateDashboard();
+}
+
+// ===== STREAK =====
+function updateStreak() {
+  let streak = 0;
+  for (let d = currentDay; d >= 1; d--) {
+    const dayData = LS.get('day_' + d, {});
+    if (dayData._complete) streak++; else break;
+  }
+  document.getElementById('currentStreak').textContent = streak;
+  document.getElementById('hlStreak').textContent = streak;
+  LS.set('streak', streak);
+}
+
+// ===== NOTIFICATIONS =====
+function requestNotifications() {
+  if (!('Notification' in window)) { showToast('Notifications not supported on this browser'); return; }
+  Notification.requestPermission().then(perm => {
+    if (perm === 'granted') {
+      showToast('Notifications enabled!');
+      scheduleNotifications();
+    } else showToast('Notification permission denied');
+  });
+}
+
+function toggleNotif(type) {
+  const el = document.getElementById('notif' + type.charAt(0).toUpperCase() + type.slice(1));
+  el.classList.toggle('checked');
+  const notifs = LS.get('notifs', {});
+  notifs[type] = el.classList.contains('checked');
+  LS.set('notifs', notifs);
+}
+
+function scheduleNotifications() {
+  if (Notification.permission !== 'granted') return;
+  const notifs = LS.get('notifs', {});
+  const now = new Date();
+  const hour = now.getHours();
+  if (notifs.sehri && hour === 4) new Notification('Ramadan Advantage', { body: 'Time for Sehri! Wake up and eat well', icon: '\u263E' });
+  if (notifs.iftar && hour === 17) new Notification('Ramadan Advantage', { body: 'Iftar is approaching! Prepare to break your fast', icon: '\u263E' });
+  if (notifs.reflection && hour === 22) new Notification('Ramadan Advantage', { body: "Don't forget today's reflection", icon: '\u263E' });
+  if (notifs.tahajjud && hour === 3) new Notification('Ramadan Advantage', { body: 'Rise for Tahajjud \u2014 the best time for dua', icon: '\u263E' });
+}
+
+setInterval(scheduleNotifications, 30 * 60 * 1000);
+
+// ===== SETTINGS =====
+function saveSettings() {
+  const settings = {
+    startDate: document.getElementById('ramadanStartDate').value,
+    name: document.getElementById('userName').value
+  };
+  LS.set('settings', settings);
+  updateCounter();
+  buildDaySelector();
+}
+
+function loadSettings() {
+  const settings = LS.get('settings', {});
+  if (settings.startDate) document.getElementById('ramadanStartDate').value = settings.startDate;
+  if (settings.name) document.getElementById('userName').value = settings.name;
+  const notifs = LS.get('notifs', {});
+  Object.keys(notifs).forEach(k => {
+    const el = document.getElementById('notif' + k.charAt(0).toUpperCase() + k.slice(1));
+    if (el && notifs[k]) el.classList.add('checked');
+  });
+}
+
+// ===== EXPORT =====
+function exportProgress() {
+  const settings = LS.get('settings', {});
+  const goals = LS.get('goals', {});
+  let report = `<h4 style="color:var(--gold)">Ramadan Advantage Progress Report</h4>`;
+  report += `<p style="font-size:12px;color:var(--text-dim)">Generated: ${new Date().toLocaleDateString()}</p>`;
+  report += `<p style="font-size:12px;color:var(--text-dim)">Name: ${settings.name || 'Not set'}</p><hr style="border-color:rgba(255,255,255,0.1);margin:12px 0">`;
+
+  let completeDays = 0;
+  for (let d = 1; d <= 30; d++) { if (LS.get('day_' + d, {})._complete) completeDays++; }
+  report += `<p><strong>Days Completed:</strong> ${completeDays}/30</p>`;
+  report += `<p><strong>Current Streak:</strong> ${LS.get('streak', 0)} days</p>`;
+
+  const goalLabels = { salah_commitment: 'Salah', quran_target: 'Quran Target', charity_amount: 'Daily Charity', tahajjud_plan: 'Tahajjud' };
+  report += '<h4 style="color:var(--gold);margin-top:12px">Key Goals</h4>';
+  Object.entries(goalLabels).forEach(([k, v]) => {
+    if (goals[k]) report += `<p style="font-size:13px"><strong>${v}:</strong> ${goals[k]}</p>`;
+  });
+
+  document.getElementById('exportContent').innerHTML = report;
+  document.getElementById('exportModal').classList.add('show');
+}
+
+function copyExport() {
+  const text = document.getElementById('exportContent').innerText;
+  navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!'));
+}
+
+function shareProgress() {
+  const settings = LS.get('settings', {});
+  let completeDays = 0;
+  for (let d = 1; d <= 30; d++) { if (LS.get('day_' + d, {})._complete) completeDays++; }
+  const text = `\uD83C\uDF19 Ramadan Advantage Progress\n${completeDays}/30 days completed\nStreak: ${LS.get('streak', 0)} days\n\n#RamadanAdvantage #Timelenders`;
+
+  if (navigator.share) {
+    navigator.share({ title: 'Ramadan Advantage Progress', text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => showToast('Summary copied to clipboard!'));
+  }
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+function resetData() {
+  if (!confirm('Are you sure you want to reset ALL data? This cannot be undone.')) return;
+  const keys = Object.keys(localStorage).filter(k => k.startsWith('ra_'));
+  keys.forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+// ===== UTILITIES =====
+function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ===== INIT =====
+function init() {
+  loadSettings();
+  updateCounter();
+  const info = getRamadanInfo();
+  if (info.isActive) currentDay = info.day;
+
+  initGoalTabs();
+  initHealthTabs();
+
+  buildDaySelector();
+  initGoals();
+  initHabits();
+  initDuas();
+  loadDailyData();
+  loadHealthData();
+  updateDashboard();
+  updateStreak();
+  updateGreeting();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').then(() => console.log('SW registered'));
+  }
+}
+
+// ===== INSTALL PROMPT =====
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show install banner if not previously dismissed
+  if (!LS.get('install_dismissed')) {
+    setTimeout(() => {
+      document.getElementById('installBanner').classList.add('show');
+    }, 3000); // Show after 3 seconds
+  }
+});
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      if (choice.outcome === 'accepted') {
+        showToast('App installed! Find it on your home screen');
+      }
+      deferredPrompt = null;
+      document.getElementById('installBanner').classList.remove('show');
+    });
+  }
+}
+
+function dismissInstall() {
+  document.getElementById('installBanner').classList.remove('show');
+  LS.set('install_dismissed', true);
+}
+
+// iOS detection — show custom install hint
+function checkiOSInstall() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isStandalone = window.navigator.standalone === true;
+  if (isIOS && !isStandalone && !LS.get('ios_hint_dismissed')) {
+    setTimeout(() => {
+      document.getElementById('iosInstallHint').classList.add('show');
+      LS.set('ios_hint_dismissed', true);
+    }, 5000);
+  }
+}
+
+// Hide install banner if app is already installed
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').classList.remove('show');
+  deferredPrompt = null;
+  showToast('Welcome! App installed successfully');
+});
+
+// ===== SHARE / INVITE =====
+function inviteFriend() {
+  const appUrl = window.location.href.split('?')[0];
+  const text = '\u{1F319} Ramadan Advantage — a free app to help you plan and track your entire Ramadan journey.\n\nSalah, Quran, health, goals, and daily reflections — all in one place.\n\nTry it: ' + appUrl + '\n\n#RamadanAdvantage #Timelenders';
+  if (navigator.share) {
+    navigator.share({ title: 'Ramadan Advantage App', text, url: appUrl }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => showToast('Invite message copied!'));
+  }
+}
+
+function copyAppLink() {
+  const appUrl = window.location.href.split('?')[0];
+  navigator.clipboard.writeText(appUrl).then(() => showToast('App link copied to clipboard!'));
+}
+
+document.addEventListener('DOMContentLoaded', () => { init(); checkiOSInstall(); });
+</script>
+</body>
+</html>
